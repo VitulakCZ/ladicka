@@ -1,11 +1,9 @@
-#define MA_NO_DECODING
 #define MA_NO_ENCODING
-
-#include <stdio.h>
 #define MINIAUDIO_IMPLEMENTATION
 #include "miniaudio.h"
-
+#include <stdio.h>
 #define MAX_LENGTH 256
+
 const float SAMPLE_RATE = 48000;
 const float DURATION_SAMPLE = 1.0f / SAMPLE_RATE;
 
@@ -16,7 +14,7 @@ void data_callback(ma_device* pDevice, void* pOutput, const void* pInput, ma_uin
     float* pOutputF32 = (float*)pOutput;
 
     for (ma_uint32 curFrame = 0; curFrame < frameCount; ++curFrame) {
-        float y = sin(MA_TAU_D * frekvence * t);
+        float y = sin(MA_TAU_D * frekvence * t)*(440/frekvence);
 
         t += DURATION_SAMPLE;
 
@@ -87,7 +85,7 @@ int main(void) {
             break;
     }
     printf("Z = Změnit nástroj\nPrávě zní %.2f Hz\n", frekvence);
-    printf(nabidka);
+    printf("%s", nabidka);
     printf("[+/-] Hz\nJiná frekvence: ");
 
     fgets(input, MAX_LENGTH, stdin);
